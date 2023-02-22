@@ -19,14 +19,18 @@ Source code for the Java Developer Challenge
 
 ### Desired API
 
-```json
 POST v1/consulta-endereco
 REQUEST
+
+```json
 {
     "cep": "01001000"
 }
+```
 
 RESPONSE HTTP 200
+
+```json
 {
     "cep": "01001-000",
     "rua": "Praça da Sé",
