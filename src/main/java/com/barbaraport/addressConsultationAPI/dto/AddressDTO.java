@@ -8,6 +8,26 @@ public class AddressDTO extends ZipCodeDTO {
 	private String estado;
 	private float frete;
 	
+	public AddressDTO () {}
+	
+	public AddressDTO (
+			String cep, 
+			String rua, 
+			String complemento, 
+			String bairro, 
+			String cidade, 
+			String estado, 
+			float frete) {
+		super(cep);
+		
+		this.rua = rua;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.frete = frete;
+	}
+	
 	public String getRua() {
 		return rua;
 	}

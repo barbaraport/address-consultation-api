@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
 
+import com.barbaraport.addressConsultationAPI.dto.AddressDTO;
 import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
 
 @SpringBootTest
@@ -20,14 +20,14 @@ class AddressConsultationServiceTests {
 	}
 	
 	@Test
-	public void successfulForValidAndExistingZipCode1() {
-		HttpEntity<String> result = addressConsultationService.getAddress(new ZipCodeDTO("01001000"));
-		assertNotEquals("", result.getBody());
+	public void successfulForValidAndExistingZipCode1() throws Exception {
+		AddressDTO result = addressConsultationService.getAddress(new ZipCodeDTO("01001000"));
+		assertNotEquals("", result);
 	}
 	
 	@Test
-	public void successfulForValidAndExistingZipCode2() {
-		HttpEntity<String> result = addressConsultationService.getAddress(new ZipCodeDTO("12280092"));
-		assertNotEquals("", result.getBody());
+	public void successfulForValidAndExistingZipCode2() throws Exception {
+		AddressDTO result = addressConsultationService.getAddress(new ZipCodeDTO("12280092"));
+		assertNotEquals("", result);
 	}
 }
