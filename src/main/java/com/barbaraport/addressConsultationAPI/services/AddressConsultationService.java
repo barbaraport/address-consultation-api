@@ -8,17 +8,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
+
 @Service
 public class AddressConsultationService {
 
-	public HttpEntity<String> getAddress() {
+	public HttpEntity<String> getAddress(ZipCodeDTO zipCodeDTO) {
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-				"http://www.viacep.com.br/ws/01001000/json/"
+				"http://www.viacep.com.br/ws/"+ zipCodeDTO.getCep() + "/json/"
 		);
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);

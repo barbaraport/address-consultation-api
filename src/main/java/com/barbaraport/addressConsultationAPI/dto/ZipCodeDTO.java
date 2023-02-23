@@ -1,15 +1,14 @@
 package com.barbaraport.addressConsultationAPI.dto;
 
 public class ZipCodeDTO {
-	private String zipCode;
+	private String cep;
 
-	public String getZipCode() {
-		return zipCode;
+	public String getCep() {
+		return cep;
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
-	
 	
 }

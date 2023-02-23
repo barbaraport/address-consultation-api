@@ -19,6 +19,6 @@ public class AddressConsultationController {
 
 	@PostMapping
 	public HttpEntity<String> getAddress(@RequestBody ZipCodeDTO zipCodeDTO) {
-		return addressConsultationService.getAddress();
+		return addressConsultationService.getAddress(zipCodeDTO);
 	}
 }
