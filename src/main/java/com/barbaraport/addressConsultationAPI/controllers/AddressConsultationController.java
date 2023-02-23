@@ -1,6 +1,7 @@
 package com.barbaraport.addressConsultationAPI.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class AddressConsultationController {
 	public AddressConsultationService addressConsultationService;
 
 	@PostMapping
-	public String getAddress(@RequestBody ZipCodeDTO zipCodeDTO) {
+	public HttpEntity<String> getAddress(@RequestBody ZipCodeDTO zipCodeDTO) {
 		return addressConsultationService.getAddress();
 	}
 }
