@@ -6,6 +6,7 @@ Source code for the Java Developer Challenge
 
 - Send a zipcode to consult its address
 - The zipcode can have a mask or not
+- Calculate the fare
 - In case of failure, return a informative message
 
 ## Non-functional requirements
