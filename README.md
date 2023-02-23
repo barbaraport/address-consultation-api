@@ -1,22 +1,23 @@
 # address-consultation-api
 
-Source code for the Java Developer Challenge
+Source code for the Java Developer Challenge.
 
 ## Functional requirements
 
-- Send a zipcode to consult its address
-- The zipcode can have a mask or not
-- Calculate the fare
-- In case of failure, return a informative message
+:heavy_check_mark: Send a zipcode to consult its address
+:x: The sent zipcode can have a mask or not
+:heavy_check_mark: Calculate the fare
+:x: In case of failure from the external API (Via Cep API), return an informative message
+:x: In case of failure from the consultation API, return an informative message
 
 ## Non-functional requirements
 
-- Java 11
-- Spring Boot
-- API REST Template
-- Swagger Documentation
-- JUnit5 Unitary tests
-- Cucumber automated tests
+:heavy_check_mark: Java 11
+:heavy_check_mark: Spring Boot
+:heavy_check_mark: API REST Template
+:x: Swagger Documentation
+:heavy_check_mark: JUnit5 Unitary tests
+:x: Cucumber automated tests
 
 ### Desired API
 
