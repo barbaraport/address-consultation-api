@@ -8,7 +8,12 @@ Source code for the Java Developer Challenge.
 :x: The sent zipcode can have a mask or not
 :heavy_check_mark: Calculate the fare
 :x: In case of failure from the external API (Via Cep API), return an informative message
+    :x: Valid zip code, but inexistent (example: 99999999)
 :x: In case of failure from the consultation API, return an informative message
+    :x: Validation for digits quantity (example: "950100100")
+    :x: Validation for alphanumeric digits (example: "95010A10")
+    :x: Validation for spaces (example: "95010 10")
+    :x: Validation for zip code mask
 
 ## Non-functional requirements
 
