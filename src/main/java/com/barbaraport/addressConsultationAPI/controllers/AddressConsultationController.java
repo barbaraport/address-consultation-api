@@ -15,7 +15,7 @@ import com.barbaraport.addressConsultationAPI.services.AddressConsultationServic
 public class AddressConsultationController {
 	
 	@Autowired
-	public AddressConsultationService addressConsultationService;
+	private AddressConsultationService addressConsultationService;
 
 	@PostMapping
 	public HttpEntity<String> getAddress(@RequestBody ZipCodeDTO zipCodeDTO) {
