@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.barbaraport.addressConsultationAPI.dto.AddressDTO;
 import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -30,7 +31,7 @@ class AddressConsultationControllerTests {
 	}
 	
 	@Test
-	public void successfulForValidAndExistingZipCode1() throws Exception {
+	public void successfulForValidAndExistingZipCode1() throws JsonProcessingException, Exception {
 		MvcResult result = mockMvc.perform(post("/v1/consulta-endereco")
 		.contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO("01001000"))))
@@ -48,6 +49,27 @@ class AddressConsultationControllerTests {
 		assertEquals("lado ímpar", address.getComplemento());
 		assertEquals("Sé", address.getBairro());
 		assertEquals("São Paulo", address.getCidade());
+		assertEquals("SP", address.getEstado());
+		assertEquals(7.85, address.getFrete());
+	}
+	
+	public void successfulForValidAndExistingZipCode2() throws JsonProcessingException, Exception {
+		MvcResult result = mockMvc.perform(post("/v1/consulta-endereco")
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO("12280113"))))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String jsonAddress = response.getContentAsString();
+		
+		AddressDTO address = new ObjectMapper().readValue(jsonAddress, AddressDTO.class);		
+		assertEquals("12280-113", address.getCep());
+		assertEquals("Avenida Francisca Salles Damasco", address.getRua());
+		assertEquals("de 641/642 ao fim", address.getComplemento());
+		assertEquals("Jardim São José", address.getBairro());
+		assertEquals("Caçapava", address.getCidade());
 		assertEquals("SP", address.getEstado());
 		assertEquals(7.85, address.getFrete());
 	}
