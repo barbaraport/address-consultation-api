@@ -20,7 +20,7 @@ public class AddressConsultationService {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-				"http://www.viacep.com.br/ws/"+ zipCodeDTO.getCep() + "/json/"
+				"http://www.viacep.com.br/ws/" + zipCodeDTO.getCep() + "/json/"
 		);
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);
