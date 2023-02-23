@@ -6,7 +6,7 @@ public class AddressDTO extends ZipCodeDTO {
 	private String bairro;
 	private String cidade;
 	private String estado;
-	private float frete;
+	private double frete;
 	
 	public AddressDTO () {}
 	
@@ -17,7 +17,7 @@ public class AddressDTO extends ZipCodeDTO {
 			String bairro, 
 			String cidade, 
 			String estado, 
-			float frete) {
+			double frete) {
 		super(cep);
 		
 		this.rua = rua;
@@ -68,11 +68,11 @@ public class AddressDTO extends ZipCodeDTO {
 		this.estado = estado;
 	}
 	
-	public float getFrete() {
+	public double getFrete() {
 		return frete;
 	}
 	
-	public void setFrete(float frete) {
+	public void setFrete(double frete) {
 		this.frete = frete;
 	}
 	

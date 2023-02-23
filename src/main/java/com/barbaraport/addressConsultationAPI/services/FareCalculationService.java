@@ -15,24 +15,24 @@ public class FareCalculationService {
 	
 	private Map<Zones, Collection<String>> zones = this.getZones();
 	
-	public float calculateFare(String federativeUnit) throws Exception {
+	public double calculateFare(String federativeUnit) throws Exception {
 		
 		String treatedFederativeUnit = federativeUnit.trim().toUpperCase();
 		
 		if (zones.get(Zones.SOUTH_EAST).contains(treatedFederativeUnit)) {
-			return 7.85f;
+			return 7.85;
 		}
 		else if (zones.get(Zones.SOUTH).contains(treatedFederativeUnit)) {
-			return 17.30f;
+			return 17.30;
 		}
 		else if (zones.get(Zones.MID_WEST).contains(treatedFederativeUnit)) {
-			return 12.50f;
+			return 12.50;
 		}
 		else if (zones.get(Zones.NORTH_EAST).contains(treatedFederativeUnit)) {
-			return 15.98f;
+			return 15.98;
 		}
 		else if (zones.get(Zones.NORTH).contains(treatedFederativeUnit)) {
-			return 20.83f;
+			return 20.83;
 		}
 		
 		throw new Exception("It was not possible to determine which zone the " + federativeUnit + " belongs to.");

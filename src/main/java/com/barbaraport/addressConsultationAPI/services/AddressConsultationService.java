@@ -42,7 +42,7 @@ public class AddressConsultationService {
 		String uf = viaCepAddress.getUf();
 
 		try {
-			float fare = fareCalculationService.calculateFare(uf);
+			double fare = fareCalculationService.calculateFare(uf);
 			
 			AddressDTO consultationAddress = new AddressDTO(
 					viaCepAddress.getCep(),
