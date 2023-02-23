@@ -17,7 +17,7 @@ public class AddressConsultationController {
 	@Autowired
 	private AddressConsultationService addressConsultationService;
 
-	@PostMapping
+	@PostMapping(produces = "application/json;charset=UTF-8")
 	public AddressDTO getAddress(@RequestBody ZipCodeDTO zipCodeDTO) throws Exception {
 		return addressConsultationService.getAddress(zipCodeDTO);
 	}
