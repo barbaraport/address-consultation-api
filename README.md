@@ -16,11 +16,11 @@ Source code for the Java Developer Challenge.
     
 :x: In case of failure from the consultation API, return an informative message
 
-:x: Validation for digits quantity (example: "950100100")
+:heavy_check_mark: Validation for digits quantity (example: "950100100")
 
-:x: Validation for alphanumeric digits (example: "95010A10")
+:heavy_check_mark: Validation for alphanumeric digits (example: "95010A10")
 
-:x: Validation for spaces (example: "95010 10")
+:heavy_check_mark: Validation for spaces (example: "95010 10")
 
 :x: Validation for zip code mask
 
