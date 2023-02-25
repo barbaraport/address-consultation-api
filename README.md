@@ -4,9 +4,9 @@ Source code for the Java Developer Challenge.
 
 ## Functional requirements
 
-:heavy_check_mark: Send a zipcode to consult its address
+:heavy_check_mark: Send a zip code to consult its address
 
-:x: The sent zipcode can have a mask or not
+:heavy_check_mark: The sent zip code can have a mask or not
 
 :heavy_check_mark: Calculate the fare
 
