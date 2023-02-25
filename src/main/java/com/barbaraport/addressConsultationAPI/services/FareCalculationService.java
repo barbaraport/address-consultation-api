@@ -20,10 +20,10 @@ public class FareCalculationService {
 		if (federativeUnit == null)
 			throw new Exception("The federative unit can not be null");
 		
-		if (federativeUnit.trim().strip().equals(""))
-			throw new Exception("The federative unit can not be empty"); 
+		String treatedFederativeUnit = federativeUnit.trim().strip().toUpperCase();
 		
-		String treatedFederativeUnit = federativeUnit.trim().toUpperCase();
+		if (treatedFederativeUnit.equals(""))
+			throw new Exception("The federative unit can not be empty"); 
 		
 		if (zones.get(Zones.SOUTH_EAST).contains(treatedFederativeUnit)) {
 			return 7.85;
