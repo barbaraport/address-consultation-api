@@ -12,7 +12,7 @@ Source code for the Java Developer Challenge.
 
 :x: In case of failure from the external API (Via Cep API), return an informative message
 
-:x: Valid zip code, but inexistent (example: 99999999)
+:heavy_check_mark: Valid zip code, but inexistent (example: 99999999)
     
 :x: In case of failure from the consultation API, return an informative message
 

@@ -1,5 +1,6 @@
 package com.barbaraport.addressConsultationAPI.services;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.barbaraport.addressConsultationAPI.dto.AddressDTO;
 import com.barbaraport.addressConsultationAPI.dto.ViaCepResponseDTO;
 import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class AddressConsultationService {
@@ -35,9 +37,7 @@ public class AddressConsultationService {
 		boolean isValidZipCode = zipCodeHandlingService.isZipCodeValid(zipCode);
 		if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " can not be invalid.");
 		
-		String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
-		
-		ViaCepResponseDTO viaCepAddress = this.doRequest(rawZipCode);
+		ViaCepResponseDTO viaCepAddress = this.doRequest(zipCode);
 		
 		String uf = viaCepAddress.getUf();
 
@@ -56,7 +56,10 @@ public class AddressConsultationService {
 		return consultationAddress;
 	}
 	
-	private ViaCepResponseDTO doRequest(String rawZipCode) {
+	private ViaCepResponseDTO doRequest(String zipCode) throws Exception {
+		
+		String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
+		
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -68,13 +71,23 @@ public class AddressConsultationService {
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-		HttpEntity<ViaCepResponseDTO> response = restTemplate.exchange(
+		HttpEntity<String> plainJsonResponse = restTemplate.exchange(
 		        builder.toUriString(), 
 		        HttpMethod.GET, 
 		        entity, 
-		        ViaCepResponseDTO.class);
+		        String.class);
 		
-		ViaCepResponseDTO viaCepAddress = response.getBody();
+		String plainJsonResponseBody = plainJsonResponse.getBody();
+		
+		JSONObject responseBody = new JSONObject(plainJsonResponseBody);
+		
+		if(responseBody.has("erro")) throw new Exception(
+				"The zip code " + zipCode + " does not exist");
+		
+		ViaCepResponseDTO viaCepAddress = new ObjectMapper().readValue(
+				plainJsonResponseBody,
+				ViaCepResponseDTO.class
+		);
 		
 		return viaCepAddress;
 	}

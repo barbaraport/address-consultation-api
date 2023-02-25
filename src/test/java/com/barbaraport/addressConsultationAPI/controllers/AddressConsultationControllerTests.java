@@ -1,8 +1,6 @@
 package com.barbaraport.addressConsultationAPI.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -298,5 +296,45 @@ class AddressConsultationControllerTests {
 		assertEquals("Porto Alegre", address.getCidade());
 		assertEquals("RS", address.getEstado());
 		assertEquals(17.30, address.getFrete());
+	}
+	
+	@Test
+	public void successfulForValidButInexistentZipCodeWithoutMask() throws JsonProcessingException, Exception {
+		String zipCode = "99999999";
+		
+		MvcResult result = mockMvc.perform(post(ROUTE)
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO(zipCode))))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String message = response.getContentAsString();
+	
+		assertEquals(
+				"The zip code " + zipCode + " does not exist",
+				message
+		);
+	}
+	
+	@Test
+	public void successfulForValidButInexistentZipCodeWithMask() throws JsonProcessingException, Exception {
+		String zipCode = "99999-999";
+		
+		MvcResult result = mockMvc.perform(post(ROUTE)
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO(zipCode))))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String message = response.getContentAsString();
+	
+		assertEquals(
+				"The zip code " + zipCode + " does not exist",
+				message
+		);
 	}
 }
