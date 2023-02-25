@@ -69,12 +69,15 @@ public class FareCalculationServiceTests {
 	@Test
 	public void existentFederativeUnitNorth() throws Exception {
 		assertEquals(20.83, fareCalculationService.calculateFare("AM"));
+		assertEquals(20.83, fareCalculationService.calculateFare("Am"));
 		assertEquals(20.83, fareCalculationService.calculateFare("AC"));
 		assertEquals(20.83, fareCalculationService.calculateFare("RO"));
 		assertEquals(20.83, fareCalculationService.calculateFare("RR"));
 		assertEquals(20.83, fareCalculationService.calculateFare("AP"));
+		assertEquals(20.83, fareCalculationService.calculateFare("aP"));
 		assertEquals(20.83, fareCalculationService.calculateFare("PA"));
 		assertEquals(20.83, fareCalculationService.calculateFare("TO"));
+		assertEquals(20.83, fareCalculationService.calculateFare("to"));
 	}
 
 	@Test
@@ -82,11 +85,13 @@ public class FareCalculationServiceTests {
 		assertEquals(15.98, fareCalculationService.calculateFare("MA"));
 		assertEquals(15.98, fareCalculationService.calculateFare("PI"));
 		assertEquals(15.98, fareCalculationService.calculateFare("RN"));
+		assertEquals(15.98, fareCalculationService.calculateFare("rn"));
 		assertEquals(15.98, fareCalculationService.calculateFare("CE"));
 		assertEquals(15.98, fareCalculationService.calculateFare("PB"));
 		assertEquals(15.98, fareCalculationService.calculateFare("RN"));
 		assertEquals(15.98, fareCalculationService.calculateFare("BA"));
 		assertEquals(15.98, fareCalculationService.calculateFare("PE"));
+		assertEquals(15.98, fareCalculationService.calculateFare("pE"));
 		assertEquals(15.98, fareCalculationService.calculateFare("AL"));
 		assertEquals(15.98, fareCalculationService.calculateFare("SE"));
 	}
@@ -96,6 +101,7 @@ public class FareCalculationServiceTests {
 		assertEquals(12.50, fareCalculationService.calculateFare("DF"));
 		assertEquals(12.50, fareCalculationService.calculateFare("GO"));
 		assertEquals(12.50, fareCalculationService.calculateFare("MT"));
+		assertEquals(12.50, fareCalculationService.calculateFare("Mt"));
 		assertEquals(12.50, fareCalculationService.calculateFare("MS"));
 	}
 	
@@ -105,12 +111,14 @@ public class FareCalculationServiceTests {
 		assertEquals(7.85, fareCalculationService.calculateFare("MG"));
 		assertEquals(7.85, fareCalculationService.calculateFare("RJ"));
 		assertEquals(7.85, fareCalculationService.calculateFare("SP"));
+		assertEquals(7.85, fareCalculationService.calculateFare("sP"));
 	}
 	
 	@Test
 	public void existentFederativeUnitSouth() throws Exception {
 		assertEquals(17.30, fareCalculationService.calculateFare("PR"));
 		assertEquals(17.30, fareCalculationService.calculateFare("SC"));
+		assertEquals(17.30, fareCalculationService.calculateFare("Sc"));
 		assertEquals(17.30, fareCalculationService.calculateFare("RS"));
 	}
 }
