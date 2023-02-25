@@ -37,6 +37,26 @@ public class AddressConsultationService {
 		
 		String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
 		
+		ViaCepResponseDTO viaCepAddress = this.doRequest(rawZipCode);
+		
+		String uf = viaCepAddress.getUf();
+
+		double fare = fareCalculationService.calculateFare(uf);
+			
+		AddressDTO consultationAddress = new AddressDTO(
+				viaCepAddress.getCep(),
+				viaCepAddress.getLogradouro(),
+				viaCepAddress.getComplemento(),
+				viaCepAddress.getBairro(),
+				viaCepAddress.getLocalidade(),
+				uf,
+				fare
+		);
+
+		return consultationAddress;
+	}
+	
+	private ViaCepResponseDTO doRequest(String rawZipCode) {
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -56,25 +76,6 @@ public class AddressConsultationService {
 		
 		ViaCepResponseDTO viaCepAddress = response.getBody();
 		
-		String uf = viaCepAddress.getUf();
-
-		try {
-			double fare = fareCalculationService.calculateFare(uf);
-			
-			AddressDTO consultationAddress = new AddressDTO(
-					viaCepAddress.getCep(),
-					viaCepAddress.getLogradouro(),
-					viaCepAddress.getComplemento(),
-					viaCepAddress.getBairro(),
-					viaCepAddress.getLocalidade(),
-					uf,
-					fare
-			);
-			
-			return consultationAddress;
-		}
-		catch(Exception exception) {
-			throw exception;
-		}
+		return viaCepAddress;
 	}
 }
