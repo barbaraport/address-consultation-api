@@ -22,7 +22,7 @@ Source code for the Java Developer Challenge.
 
 :heavy_check_mark: Validation for spaces (example: "95010 10")
 
-:x: Validation for zip code mask
+:heavy_check_mark: Validation for zip code mask
 
 
 ## Non-functional requirements
