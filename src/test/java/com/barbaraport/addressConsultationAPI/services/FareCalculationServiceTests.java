@@ -31,6 +31,22 @@ public class FareCalculationServiceTests {
 	}
 	
 	@Test
+	public void mistypedFederativeUnit() {
+		
+		String federativeUnit = " B A ";
+		
+	    Exception exception = assertThrows(
+	    		Exception.class, 
+	    		() -> fareCalculationService.calculateFare(federativeUnit)
+	    );
+
+	     assertTrue(exception.getMessage().contentEquals(
+	    		 "It was not possible to determine which zone the " + 
+	    				 federativeUnit + " belongs to."
+	    ));
+	}
+	
+	@Test
 	public void nullFederativeUnit() {
 		Exception exception = assertThrows(
 	    		Exception.class, 
@@ -72,6 +88,9 @@ public class FareCalculationServiceTests {
 		assertEquals(20.83, fareCalculationService.calculateFare("Am"));
 		assertEquals(20.83, fareCalculationService.calculateFare("AC"));
 		assertEquals(20.83, fareCalculationService.calculateFare("RO"));
+		assertEquals(20.83, fareCalculationService.calculateFare(" RO"));
+		assertEquals(20.83, fareCalculationService.calculateFare(" RO "));
+		assertEquals(20.83, fareCalculationService.calculateFare("RO "));
 		assertEquals(20.83, fareCalculationService.calculateFare("RR"));
 		assertEquals(20.83, fareCalculationService.calculateFare("AP"));
 		assertEquals(20.83, fareCalculationService.calculateFare("aP"));
@@ -90,6 +109,7 @@ public class FareCalculationServiceTests {
 		assertEquals(15.98, fareCalculationService.calculateFare("PB"));
 		assertEquals(15.98, fareCalculationService.calculateFare("RN"));
 		assertEquals(15.98, fareCalculationService.calculateFare("BA"));
+		assertEquals(15.98, fareCalculationService.calculateFare(" ba "));
 		assertEquals(15.98, fareCalculationService.calculateFare("PE"));
 		assertEquals(15.98, fareCalculationService.calculateFare("pE"));
 		assertEquals(15.98, fareCalculationService.calculateFare("AL"));
