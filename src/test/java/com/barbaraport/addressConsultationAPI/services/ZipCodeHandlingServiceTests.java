@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
+
 @SpringBootTest
 public class ZipCodeHandlingServiceTests {
 	
@@ -17,6 +19,31 @@ public class ZipCodeHandlingServiceTests {
 	@Test
 	public void removeCharactersZipCode1 () {
 		assertEquals("12280112", zipCodeHandlingService.removeMask("12280-112"));
+	}
+	
+	@Test
+	public void zipCodeIsNull() {
+		assertTrue(zipCodeHandlingService.isZipCodeNull(null));
+	}
+	
+	@Test
+	public void zipCodeDTONotNullAndZipCodeNotNull() {
+		assertFalse(zipCodeHandlingService.isZipCodeDTONull(new ZipCodeDTO("12280112")));
+	}
+	
+	@Test
+	public void zipCodeDTONotNullAndZipCodeIsNull() {
+		assertFalse(zipCodeHandlingService.isZipCodeDTONull(new ZipCodeDTO(null)));
+	}
+	
+	@Test
+	public void zipCodeDTOIsNull() {
+		assertTrue(zipCodeHandlingService.isZipCodeDTONull(null));
+	}
+	
+	@Test
+	public void zipCodeNotNull() {
+		assertFalse(zipCodeHandlingService.isZipCodeNull("12281-001"));
 	}
 	
 	@Test

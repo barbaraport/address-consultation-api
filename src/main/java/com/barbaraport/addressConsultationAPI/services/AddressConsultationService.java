@@ -18,15 +18,32 @@ public class AddressConsultationService {
 	
 	@Autowired
 	private FareCalculationService fareCalculationService;
+	
+	@Autowired
+	private ZipCodeHandlingService zipCodeHandlingService;
 
 	public AddressDTO getAddress(ZipCodeDTO zipCodeDTO) throws Exception {
+		
+		boolean isZipCodeDTONull = zipCodeHandlingService.isZipCodeDTONull(zipCodeDTO);
+		if (isZipCodeDTONull) throw new Exception("The request must have a body containing the zip code");
+		
+		String zipCode = zipCodeDTO.getCep();
+		
+		boolean isZipCodeNull = zipCodeHandlingService.isZipCodeNull(zipCode);
+		if (isZipCodeNull) throw new Exception("The zip code can not be null");
+		
+		boolean isValidZipCode = zipCodeHandlingService.isZipCodeValid(zipCode);
+		if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " can not be invalid.");
+		
+		String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
+		
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-				"http://www.viacep.com.br/ws/" + zipCodeDTO.getCep() + "/json/"
+				"http://www.viacep.com.br/ws/" + rawZipCode + "/json/"
 		);
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);

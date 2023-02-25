@@ -1,6 +1,8 @@
 package com.barbaraport.addressConsultationAPI.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +45,25 @@ class AddressConsultationServiceTests {
 		assertEquals("Caçapava", result.getCidade());
 		assertEquals("SP", result.getEstado());
 		assertEquals(7.85, result.getFrete());
+	}
+	
+	@Test
+	public void successfulForNullZipCode() throws Exception {
+		Exception exception = assertThrows(
+				Exception.class, 
+				() -> addressConsultationService.getAddress(new ZipCodeDTO(null))
+		);
+
+		assertTrue(exception.getMessage().contentEquals("The zip code can not be null"));
+	}
+	
+	@Test
+	public void successfulForNullRequestBody() throws Exception {
+		Exception exception = assertThrows(
+				Exception.class, 
+				() -> addressConsultationService.getAddress(null)
+		);
+
+		assertTrue(exception.getMessage().contentEquals("The request must have a body containing the zip code"));
 	}
 }
