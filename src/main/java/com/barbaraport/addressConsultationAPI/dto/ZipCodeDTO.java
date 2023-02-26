@@ -1,6 +1,10 @@
 package com.barbaraport.addressConsultationAPI.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class ZipCodeDTO {
+	
+	@ApiModelProperty(notes = "Zip code", example = "12280-112", required = true)
 	private String cep;
 	
 	public ZipCodeDTO() {}
