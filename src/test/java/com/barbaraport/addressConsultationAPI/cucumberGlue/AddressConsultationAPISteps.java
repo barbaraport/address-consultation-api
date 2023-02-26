@@ -30,36 +30,47 @@ public class AddressConsultationAPISteps {
 
     @When("the zip code {string} is sent")
     public void sendZipCode(String zipCode) throws JSONException {
-        RestTemplate restTemplate = new RestTemplate();
+        try {
+            RestTemplate restTemplate = new RestTemplate();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-                "http://localhost:" + port + "/v1/consulta-endereco"
-        );
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                    "http://localhost:" + port + "/v1/consulta-endereco"
+            );
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
-        JSONObject request = new JSONObject();
-        request.put("cep", zipCode);
+            JSONObject request = new JSONObject();
+            request.put("cep", zipCode);
 
-        HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
+            HttpEntity<String> entity = new HttpEntity<>(request.toString(), headers);
 
-        ResponseEntity<String> plainResponse = restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.POST,
-                entity,
-                String.class);
-
-        this.lastResponse = plainResponse;
+            this.lastResponse =  restTemplate.exchange(
+                    builder.toUriString(),
+                    HttpMethod.POST,
+                    entity,
+                    String.class
+            );
+        } catch (HttpClientErrorException exception) {
+            this.lastResponse = ResponseEntity
+                    .status(exception.getRawStatusCode())
+                    .body(exception.getResponseBodyAsString()
+            );
+        }
     }
 
     @Then("no errors are thrown")
-    public void isResponseStatusEqualsTo200() {
+    public void noErrorsAreThrown() {
         assertTrue(this.lastResponse.getStatusCodeValue() == 200);
     }
 
+    @Then("an error is thrown")
+    public void anErrorIsThrown() {
+        assertTrue(this.lastResponse.getStatusCodeValue() == 400);
+    }
+
     @Then("the address should be returned")
-    public void theAddressWasReturned() throws JSONException {
+    public void theAddressShouldBeReturned() throws JSONException {
         JSONObject responseBody = new JSONObject(this.lastResponse.getBody().toString());
 
         assertTrue(responseBody.has("cep"));
@@ -77,5 +88,13 @@ public class AddressConsultationAPISteps {
         double actualFare = responseBody.getDouble("frete");
 
         assertEquals(Double.valueOf(expectedFare), actualFare);
+    }
+
+    @And("the message is {string}")
+    public void theMessageIs(String expectedMessage) throws JSONException {
+        JSONObject responseBody = new JSONObject(this.lastResponse.getBody().toString());
+        String actualMessage = responseBody.getString("message");
+
+        assertEquals(expectedMessage, actualMessage);
     }
 }
