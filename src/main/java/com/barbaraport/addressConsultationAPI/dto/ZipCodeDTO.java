@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ZipCodeDTO {
 	
-	@ApiModelProperty(notes = "Zip code", example = "12280-112", required = true)
+	@ApiModelProperty(notes = "Zip code", example = "01001-000", required = true)
 	private String cep;
 	
 	public ZipCodeDTO() {}
