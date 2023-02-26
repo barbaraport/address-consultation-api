@@ -1,6 +1,8 @@
 package com.barbaraport.addressConsultationAPI.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -334,6 +336,84 @@ class AddressConsultationControllerTests {
 	
 		assertEquals(
 				"The zip code " + zipCode + " does not exist",
+				message
+		);
+	}
+	
+	@Test
+	public void successfulForInvalidZipCode1() throws Exception {
+		String zipCode = "9004-0320";
+		
+		MvcResult result = mockMvc.perform(post(ROUTE)
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO(zipCode))))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String message = response.getContentAsString();
+	
+		assertEquals(
+				"The zip code " + zipCode + " can not be invalid.",
+				message
+		);
+	}
+	
+	@Test
+	public void successfulForInvalidZipCode2() throws Exception {
+		String zipCode = "900403 20";
+		
+		MvcResult result = mockMvc.perform(post(ROUTE)
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO(zipCode))))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String message = response.getContentAsString();
+	
+		assertEquals(
+				"The zip code " + zipCode + " can not be invalid.",
+				message
+		);
+	}
+	
+	@Test
+	public void successfulForInvalidZipCode3() throws Exception {
+		String zipCode = " 900403 20 ";
+		
+		MvcResult result = mockMvc.perform(post(ROUTE)
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO(zipCode))))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String message = response.getContentAsString();
+	
+		assertEquals(
+				"The zip code " + zipCode + " can not be invalid.",
+				message
+		);
+	}
+	
+	@Test
+	public void successfulForNullZipCode() throws Exception {
+		MvcResult result = mockMvc.perform(post(ROUTE)
+		.contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new ZipCodeDTO(null))))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		String message = response.getContentAsString();
+	
+		assertEquals(
+				"The zip code can not be null",
 				message
 		);
 	}

@@ -10,11 +10,11 @@ Source code for the Java Developer Challenge.
 
 :heavy_check_mark: Calculate the fare
 
-:x: In case of failure from the external API (Via Cep API), return an informative message
+:heavy_check_mark: In case of failure from the external API (Via Cep API), return an informative message
 
 :heavy_check_mark: Valid zip code, but inexistent (example: 99999999)
     
-:x: In case of failure from the consultation API, return an informative message
+:heavy_check_mark: In case of failure from the consultation API, return an informative message
 
 :heavy_check_mark: Validation for digits quantity (example: "950100100")
 

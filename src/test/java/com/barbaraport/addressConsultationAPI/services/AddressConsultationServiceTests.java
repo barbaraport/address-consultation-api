@@ -178,6 +178,20 @@ class AddressConsultationServiceTests {
 	}
 	
 	@Test
+	public void sucessfulForInexistentZipCode() {
+		String zipCode = "99999999";
+		
+		Exception exception = assertThrows(
+				Exception.class, 
+				() -> addressConsultationService.getAddress(new ZipCodeDTO(zipCode))
+		);
+
+		assertTrue(exception.getMessage().contentEquals(
+				"The zip code " + zipCode + " does not exist"
+		));
+	}
+	
+	@Test
 	public void successfulForInvalidZipCode1() throws Exception {
 		String zipCode = "9004-0320";
 		
