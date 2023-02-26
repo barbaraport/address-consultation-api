@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -71,21 +72,27 @@ public class AddressConsultationService {
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-		HttpEntity<String> plainJsonResponse = restTemplate.exchange(
+		ResponseEntity<String> plainResponse = restTemplate.exchange(
 		        builder.toUriString(), 
 		        HttpMethod.GET, 
 		        entity, 
 		        String.class);
 		
-		String plainJsonResponseBody = plainJsonResponse.getBody();
+		int statusCodeValue = plainResponse.getStatusCodeValue();
+		if (statusCodeValue == 400)
+			throw new Exception(
+				"There was an error processing the zip code " + zipCode
+				+ ". Try again.");
 		
-		JSONObject responseBody = new JSONObject(plainJsonResponseBody);
+		String plainResponseBody = plainResponse.getBody();
 		
-		if(responseBody.has("erro")) throw new Exception(
-				"The zip code " + zipCode + " does not exist");
+		JSONObject responseBody = new JSONObject(plainResponseBody);
+		
+		if(responseBody.has("erro"))
+			throw new Exception("The zip code " + zipCode + " does not exist");
 		
 		ViaCepResponseDTO viaCepAddress = new ObjectMapper().readValue(
-				plainJsonResponseBody,
+				plainResponseBody,
 				ViaCepResponseDTO.class
 		);
 		
