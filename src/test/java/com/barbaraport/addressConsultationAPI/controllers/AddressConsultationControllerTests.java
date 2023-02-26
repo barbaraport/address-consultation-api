@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -312,7 +313,7 @@ class AddressConsultationControllerTests {
         .andReturn();
 		
 		MockHttpServletResponse response = result.getResponse();
-		String message = response.getContentAsString();
+		String message = new JSONObject(response.getContentAsString()).getString("message");
 	
 		assertEquals(
 				"The zip code " + zipCode + " does not exist",
@@ -332,7 +333,7 @@ class AddressConsultationControllerTests {
         .andReturn();
 		
 		MockHttpServletResponse response = result.getResponse();
-		String message = response.getContentAsString();
+		String message = new JSONObject(response.getContentAsString()).getString("message");
 	
 		assertEquals(
 				"The zip code " + zipCode + " does not exist",
@@ -352,7 +353,7 @@ class AddressConsultationControllerTests {
         .andReturn();
 		
 		MockHttpServletResponse response = result.getResponse();
-		String message = response.getContentAsString();
+		String message = new JSONObject(response.getContentAsString()).getString("message");
 	
 		assertEquals(
 				"The zip code " + zipCode + " can not be invalid.",
@@ -372,7 +373,7 @@ class AddressConsultationControllerTests {
         .andReturn();
 		
 		MockHttpServletResponse response = result.getResponse();
-		String message = response.getContentAsString();
+		String message = new JSONObject(response.getContentAsString()).getString("message");
 	
 		assertEquals(
 				"The zip code " + zipCode + " can not be invalid.",
@@ -392,7 +393,7 @@ class AddressConsultationControllerTests {
         .andReturn();
 		
 		MockHttpServletResponse response = result.getResponse();
-		String message = response.getContentAsString();
+		String message = new JSONObject(response.getContentAsString()).getString("message");
 	
 		assertEquals(
 				"The zip code " + zipCode + " can not be invalid.",
@@ -410,7 +411,7 @@ class AddressConsultationControllerTests {
         .andReturn();
 		
 		MockHttpServletResponse response = result.getResponse();
-		String message = response.getContentAsString();
+		String message = new JSONObject(response.getContentAsString()).getString("message");
 	
 		assertEquals(
 				"The zip code can not be null",

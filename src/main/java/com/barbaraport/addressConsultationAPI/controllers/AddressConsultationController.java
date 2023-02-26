@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barbaraport.addressConsultationAPI.dto.AddressDTO;
+import com.barbaraport.addressConsultationAPI.dto.ErrorDTO;
 import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
 import com.barbaraport.addressConsultationAPI.services.AddressConsultationService;
 
@@ -45,7 +46,7 @@ public class AddressConsultationController {
 	        @ApiResponse(
 	        		code = 400,
 	        		message = "The zip code is invalid or it does not exist",
-	        		response = String.class
+	        		response = ErrorDTO.class
 	        ),
 	})
 	@PostMapping(produces = "application/json;charset=UTF-8")
@@ -54,7 +55,7 @@ public class AddressConsultationController {
 			return new ResponseEntity<AddressDTO>(addressConsultationService.getAddress(zipCodeDTO), HttpStatus.OK);
 		}
 		catch (Exception exception) {
-			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ErrorDTO>(new ErrorDTO(exception.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 	}
 }
