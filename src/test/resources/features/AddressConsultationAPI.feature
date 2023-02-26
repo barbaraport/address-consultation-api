@@ -57,6 +57,11 @@ Feature: Send a zip code to get the address from it
     Then an error is thrown
     And the message is "The zip code 1228A123 can not be invalid."
 
+  Scenario: invalid zip code (alphanumeric)
+    When the zip code "69065 001" is sent
+    Then an error is thrown
+    And the message is "The zip code 69065 001 can not be invalid."
+
   Scenario: valid, with mask, but nonexistent zip code
     When the zip code "12345-678" is sent
     Then an error is thrown
