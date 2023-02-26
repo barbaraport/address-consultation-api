@@ -2,6 +2,7 @@ package com.barbaraport.addressConsultationAPI.cucumberGlue;
 
 import com.barbaraport.addressConsultationAPI.dto.AddressDTO;
 import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
@@ -15,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CucumberContextConfiguration
@@ -66,5 +69,13 @@ public class AddressConsultationAPISteps {
         assertTrue(responseBody.has("cidade"));
         assertTrue(responseBody.has("estado"));
         assertTrue(responseBody.has("frete"));
+    }
+
+    @And("the fare should be {string}")
+    public void theFareShouldBe(String expectedFare) throws JSONException {
+        JSONObject responseBody = new JSONObject(this.lastResponse.getBody().toString());
+        double actualFare = responseBody.getDouble("frete");
+
+        assertEquals(Double.valueOf(expectedFare), actualFare);
     }
 }
