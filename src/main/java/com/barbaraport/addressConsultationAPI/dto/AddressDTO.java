@@ -1,7 +1,9 @@
 package com.barbaraport.addressConsultationAPI.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "Response body when the address is successfully found")
 public class AddressDTO extends ZipCodeDTO {
 	
 	@ApiModelProperty(notes = "Street", example = "Praça da Sé", required = true)
