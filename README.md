@@ -33,7 +33,7 @@ Source code for the Java Developer Challenge.
 
 :heavy_check_mark: API REST Template
 
-:x: Swagger Documentation
+:heavy_check_mark: Swagger Documentation
 
 :heavy_check_mark: JUnit5 Unitary tests
 
