@@ -35,6 +35,9 @@ public class AddressConsultationService {
         boolean isZipCodeNull = zipCodeHandlingService.isZipCodeNull(zipCode);
         if (isZipCodeNull) throw new Exception("The zip code cannot be null.");
 
+        boolean isZipCodeEmpty = zipCodeHandlingService.isZipCodeEmpty(zipCode);
+        if (isZipCodeEmpty) throw new Exception("The zip code cannot be empty.");
+
         boolean isValidZipCode = zipCodeHandlingService.isZipCodeValid(zipCode);
         if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " is invalid.");
 

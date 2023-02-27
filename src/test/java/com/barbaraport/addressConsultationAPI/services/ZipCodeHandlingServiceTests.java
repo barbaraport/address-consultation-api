@@ -80,4 +80,14 @@ public class ZipCodeHandlingServiceTests {
     public void zipCode7ValidationValid() {
         assertFalse(zipCodeHandlingService.isZipCodeValid("12280 112"));
     }
+
+    @Test
+    public void emptyZipCodeIsEmpty() {
+        assertTrue(zipCodeHandlingService.isZipCodeEmpty(""));
+    }
+
+    @Test
+    public void emptyZipCodeHasOnlySpaces() {
+        assertTrue(zipCodeHandlingService.isZipCodeEmpty("  "));
+    }
 }

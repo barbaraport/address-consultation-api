@@ -17,6 +17,10 @@ public class ZipCodeHandlingService {
         return Pattern.matches("\\d{5}[\\-]?\\d{3}", zipCode);
     }
 
+    public boolean isZipCodeEmpty(String zipCode) {
+        return zipCode.trim().strip().equals("");
+    }
+
     public boolean isZipCodeNull(String zipCode) {
         return zipCode == null;
     }

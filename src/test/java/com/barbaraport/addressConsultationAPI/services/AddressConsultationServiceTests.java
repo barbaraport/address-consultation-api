@@ -244,6 +244,16 @@ class AddressConsultationServiceTests {
     }
 
     @Test
+    public void successfulForEmptyZipCode() {
+        Exception exception = assertThrows(
+                Exception.class,
+                () -> addressConsultationService.getAddress(new ZipCodeDTO(" "))
+        );
+
+        assertTrue(exception.getMessage().contentEquals("The zip code cannot be empty."));
+    }
+
+    @Test
     public void successfulForNullRequestBody() {
         Exception exception = assertThrows(
                 Exception.class,

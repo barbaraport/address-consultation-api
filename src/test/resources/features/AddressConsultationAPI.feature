@@ -42,6 +42,16 @@ Feature: Send a zip code to get the address from it
     And the address should be returned
     And the fare should be "20.83"
 
+  Scenario: valid, with mask, but nonexistent zip code
+    When the zip code "12345-678" is sent
+    Then an error is thrown
+    And the message is "The zip code 12345-678 does not exist."
+
+  Scenario: valid, without mask, but nonexistent zip code
+    When the zip code "88888888" is sent
+    Then an error is thrown
+    And the message is "The zip code 88888888 does not exist."
+
   Scenario: invalid zip code (missing one character)
     When the zip code "12280-11" is sent
     Then an error is thrown
@@ -62,12 +72,12 @@ Feature: Send a zip code to get the address from it
     Then an error is thrown
     And the message is "The zip code 69065 001 is invalid."
 
-  Scenario: valid, with mask, but nonexistent zip code
-    When the zip code "12345-678" is sent
+  Scenario: empty zip code
+    When the zip code "" is sent
     Then an error is thrown
-    And the message is "The zip code 12345-678 does not exist."
+    And the message is "The zip code cannot be empty."
 
-  Scenario: valid, without mask, but nonexistent zip code
-    When the zip code "88888888" is sent
+  Scenario: only spaces zip code
+    When the zip code " " is sent
     Then an error is thrown
-    And the message is "The zip code 88888888 does not exist."
+    And the message is "The zip code cannot be empty."
