@@ -26,16 +26,20 @@
 
 <h3 align="center"> :link: Desired API :gear: </h3>
 
-POST v1/consulta-endereco
-REQUEST
+```POST /v1/consulta-endereco```
+<p align="justify">The request body must has an object containing the <b>CEP</b> property.</p>
+
+
 
 ```json
 {
     "cep": "01001000"
 }
 ```
+```Response 200```
+<p align="justify">If the sent zip code is valid, then the address will be returned and the response status code will be 200.</p>
 
-RESPONSE HTTP 200
+
 
 ```json
 {
@@ -48,6 +52,18 @@ RESPONSE HTTP 200
     "frete": 7.85
 }
 ```
+
+
+```Response 400```
+<p align="justify">If the sent zip code is not valid or is nonexistent, then the response body will contain a message and the response status code will be 400.</p>
+
+
+```json
+{
+    "message": "The zip code cannot be empty."
+}
+```
+
 
 
 <h2 align="center"> :hammer_and_wrench:	Non-functional requirements :toolbox: </h2>
