@@ -3,20 +3,25 @@ name: Address Consultation API CI
 on: [push]
 
 jobs:
-  download:
+  tests:
     runs-on: ubuntu-latest
-
       - uses: actions/checkout@v3
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
-  tests:
     steps:
       - name: Run tests
         run: mvn test
   build:
+    runs-on: ubuntu-latest
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
     steps:
       - name: Package application
         run: mvn package
