@@ -28,15 +28,15 @@ public class AddressConsultationService {
     public AddressDTO getAddress(ZipCodeDTO zipCodeDTO) throws Exception {
 
         boolean isZipCodeDTONull = zipCodeHandlingService.isZipCodeDTONull(zipCodeDTO);
-        if (isZipCodeDTONull) throw new Exception("The request must have a body containing the zip code");
+        if (isZipCodeDTONull) throw new Exception("The request must have a body containing the zip code.");
 
         String zipCode = zipCodeDTO.getCep();
 
         boolean isZipCodeNull = zipCodeHandlingService.isZipCodeNull(zipCode);
-        if (isZipCodeNull) throw new Exception("The zip code can not be null");
+        if (isZipCodeNull) throw new Exception("The zip code cannot be null.");
 
         boolean isValidZipCode = zipCodeHandlingService.isZipCodeValid(zipCode);
-        if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " can not be invalid.");
+        if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " is invalid.");
 
         ViaCepResponseDTO viaCepAddress = this.doRequest(zipCode);
 
@@ -87,7 +87,7 @@ public class AddressConsultationService {
         JSONObject responseBody = new JSONObject(plainResponseBody);
 
         if (responseBody.has("erro"))
-            throw new Exception("The zip code " + zipCode + " does not exist");
+            throw new Exception("The zip code " + zipCode + " does not exist.");
 
         return new ObjectMapper().readValue(
                 plainResponseBody,

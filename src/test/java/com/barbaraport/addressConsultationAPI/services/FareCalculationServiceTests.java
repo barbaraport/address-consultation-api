@@ -54,7 +54,7 @@ public class FareCalculationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The federated state can not be null"
+                "The federated state cannot be null."
         ));
     }
 
@@ -66,7 +66,7 @@ public class FareCalculationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The federated state can not be empty"
+                "The federated state cannot be empty."
         ));
     }
 
@@ -78,7 +78,7 @@ public class FareCalculationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The federated state can not be empty"
+                "The federated state cannot be empty."
         ));
     }
 

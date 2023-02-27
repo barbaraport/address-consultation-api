@@ -187,7 +187,7 @@ class AddressConsultationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The zip code " + zipCode + " does not exist"
+                "The zip code " + zipCode + " does not exist."
         ));
     }
 
@@ -201,7 +201,7 @@ class AddressConsultationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The zip code " + zipCode + " can not be invalid."
+                "The zip code " + zipCode + " is invalid."
         ));
     }
 
@@ -215,7 +215,7 @@ class AddressConsultationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The zip code " + zipCode + " can not be invalid."
+                "The zip code " + zipCode + " is invalid."
         ));
     }
 
@@ -229,7 +229,7 @@ class AddressConsultationServiceTests {
         );
 
         assertTrue(exception.getMessage().contentEquals(
-                "The zip code " + zipCode + " can not be invalid."
+                "The zip code " + zipCode + " is invalid."
         ));
     }
 
@@ -240,7 +240,7 @@ class AddressConsultationServiceTests {
                 () -> addressConsultationService.getAddress(new ZipCodeDTO(null))
         );
 
-        assertTrue(exception.getMessage().contentEquals("The zip code can not be null"));
+        assertTrue(exception.getMessage().contentEquals("The zip code cannot be null."));
     }
 
     @Test
@@ -250,6 +250,6 @@ class AddressConsultationServiceTests {
                 () -> addressConsultationService.getAddress(null)
         );
 
-        assertTrue(exception.getMessage().contentEquals("The request must have a body containing the zip code"));
+        assertTrue(exception.getMessage().contentEquals("The request must have a body containing the zip code."));
     }
 }

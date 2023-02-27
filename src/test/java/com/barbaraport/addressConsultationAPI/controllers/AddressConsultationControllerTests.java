@@ -299,7 +299,7 @@ class AddressConsultationControllerTests {
     }
 
     @Test
-    public void successfulForValidButInexistentZipCodeWithoutMask() throws Exception {
+    public void successfulForValidButNonexistentZipCodeWithoutMask() throws Exception {
         String zipCode = "99999999";
 
         MvcResult result = mockMvc.perform(post(ROUTE)
@@ -313,13 +313,13 @@ class AddressConsultationControllerTests {
         String message = new JSONObject(response.getContentAsString()).getString("message");
 
         assertEquals(
-                "The zip code " + zipCode + " does not exist",
+                "The zip code " + zipCode + " does not exist.",
                 message
         );
     }
 
     @Test
-    public void successfulForValidButInexistentZipCodeWithMask() throws Exception {
+    public void successfulForValidButNonexistentZipCodeWithMask() throws Exception {
         String zipCode = "99999-999";
 
         MvcResult result = mockMvc.perform(post(ROUTE)
@@ -333,7 +333,7 @@ class AddressConsultationControllerTests {
         String message = new JSONObject(response.getContentAsString()).getString("message");
 
         assertEquals(
-                "The zip code " + zipCode + " does not exist",
+                "The zip code " + zipCode + " does not exist.",
                 message
         );
     }
@@ -353,7 +353,7 @@ class AddressConsultationControllerTests {
         String message = new JSONObject(response.getContentAsString()).getString("message");
 
         assertEquals(
-                "The zip code " + zipCode + " can not be invalid.",
+                "The zip code " + zipCode + " is invalid.",
                 message
         );
     }
@@ -373,7 +373,7 @@ class AddressConsultationControllerTests {
         String message = new JSONObject(response.getContentAsString()).getString("message");
 
         assertEquals(
-                "The zip code " + zipCode + " can not be invalid.",
+                "The zip code " + zipCode + " is invalid.",
                 message
         );
     }
@@ -393,7 +393,7 @@ class AddressConsultationControllerTests {
         String message = new JSONObject(response.getContentAsString()).getString("message");
 
         assertEquals(
-                "The zip code " + zipCode + " can not be invalid.",
+                "The zip code " + zipCode + " is invalid.",
                 message
         );
     }
@@ -411,7 +411,7 @@ class AddressConsultationControllerTests {
         String message = new JSONObject(response.getContentAsString()).getString("message");
 
         assertEquals(
-                "The zip code can not be null",
+                "The zip code cannot be null.",
                 message
         );
     }
