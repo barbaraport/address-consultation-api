@@ -1,4 +1,4 @@
-name: Address Consultation API CI
+name: tests
 
 on: [push]
 
