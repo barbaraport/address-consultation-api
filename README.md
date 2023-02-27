@@ -67,15 +67,10 @@
 
 
 <h2 align="center"> :hammer_and_wrench:	Non-functional requirements :toolbox: </h2>
-
-:heavy_check_mark: Java 11
-
-:heavy_check_mark: Spring Boot
-
-:heavy_check_mark: API REST Template
-
-:heavy_check_mark: Swagger Documentation
-
-:heavy_check_mark: JUnit5 Unitary tests
-
-:x: Cucumber automated tests
+<p align="justify">The following requirements do not directly affect the user experience, but are part of the technical requirements to compose the infrastructure and quality of the project.</p>
+<p>:heavy_check_mark: Java 11</p>
+<p>:heavy_check_mark: Spring Boot</p>
+<p>:heavy_check_mark: API REST Template</p>
+<p>:heavy_check_mark: Swagger Documentation</p>
+<p>:heavy_check_mark: JUnit5 unity testing</p>
+<p>:heavy_check_mark: Cucumber automated tests</p>
