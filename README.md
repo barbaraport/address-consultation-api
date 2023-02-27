@@ -1,8 +1,8 @@
-# address-consultation-api
+<h1 align="center"> :house_with_garden: Address-Consultation-API :house_with_garden: </h1>
 
-Source code for the Java Developer Challenge.
+<p align="justify">Source code for the Java Developer Challenge, which consists from building an API to send a zip code and retrieve its address, if the zip code exists.</p>
 
-## Functional requirements
+<h2 align="center"> :computer: Functional requirements :computer_mouse:	</h2>
 
 :heavy_check_mark: Send a zip code to consult its address
 
@@ -24,23 +24,7 @@ Source code for the Java Developer Challenge.
 
 :heavy_check_mark: Validation for zip code mask
 
-
-## Non-functional requirements
-
-:heavy_check_mark: Java 11
-
-:heavy_check_mark: Spring Boot
-
-:heavy_check_mark: API REST Template
-
-:heavy_check_mark: Swagger Documentation
-
-:heavy_check_mark: JUnit5 Unitary tests
-
-:x: Cucumber automated tests
-
-
-### Desired API
+<h3 align="center"> :link: Desired API :gear: </h3>
 
 POST v1/consulta-endereco
 REQUEST
@@ -64,3 +48,18 @@ RESPONSE HTTP 200
     "frete": 7.85
 }
 ```
+
+
+<h2 align="center"> :hammer_and_wrench:	Non-functional requirements :toolbox: </h2>
+
+:heavy_check_mark: Java 11
+
+:heavy_check_mark: Spring Boot
+
+:heavy_check_mark: API REST Template
+
+:heavy_check_mark: Swagger Documentation
+
+:heavy_check_mark: JUnit5 Unitary tests
+
+:x: Cucumber automated tests
