@@ -67,3 +67,48 @@
 <p>:heavy_check_mark: Swagger Documentation</p>
 <p>:heavy_check_mark: JUnit5 unity testing</p>
 <p>:heavy_check_mark: Cucumber automated tests</p>
+
+<h2 align="center"> :runner: Running the project :running_woman: </h2>
+<p align="justify">To run the project successfully follow the steps below:</p>
+
+
+<h3 align="center"> :arrow_down: Clone the project </h3>
+<p align="justify">To clone the entire source code to run the project, type:</p>
+
+
+
+```
+git clone https://github.com/barbaraport/address-consultation-api.git
+```
+
+
+
+<h3 align="center"> :heavy_check_mark: Run the tests :heavy_check_mark: </h3>
+<ol>
+  <li>Be sure that you already have Java 11 installed and configured;
+  <li>Open the project folder in the terminal;</li>
+  <li>Execute all tests (from JUnit and Cucumber), typing:
+</ol>
+
+
+
+```
+.\mvnw test
+```
+
+
+
+<h3 align="center"> Start the application :arrow_up: </h3>
+<p align="justify">To execute the server application, type:</p>
+
+
+
+```
+.\mvnw spring-boot:run
+```
+
+
+
+<h3 align="center"> :books:	Access the Swagger UI </h3>
+<p align="justify">If you want to see the API documentation, access the Swagger UI clicking <a href="http://localhost:8080/swagger-ui.html">here</a> or acessing it via the URL <a href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a></p>
+<p align="justify"> :warning: Be sure that the server application is running! :warning:
