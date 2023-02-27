@@ -7,6 +7,9 @@
     <img src="https://img.shields.io/badge/Cucumber-23D96C.svg?style=for-the-badge&logo=Cucumber&logoColor=white"/>
     <img src="https://img.shields.io/badge/Swagger-85EA2D.svg?style=for-the-badge&logo=Swagger&logoColor=black"/>
 <p>
+<p align="center">
+    <img src="https://github.com/barbaraport/address-consultation-api/actions/workflows/tests.yml/badge.svg"/>
+</p>
 
 <p align="justify">Source code for the Java Developer Challenge, which consists from building an API to send a zip code and retrieve its address, if the zip code exists.</p>
 
