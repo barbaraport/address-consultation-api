@@ -28,7 +28,7 @@
 <h3 align="center"> :link: Desired API :gear: </h3>
 
 ```POST /v1/consulta-endereco```
-<p align="justify">The request body must has an object containing the <b>CEP</b> property.</p>
+<p align="justify">The request body must have an object containing the <b>CEP</b> property.</p>
 
 
 
