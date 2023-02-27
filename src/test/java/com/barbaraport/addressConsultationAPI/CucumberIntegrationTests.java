@@ -9,4 +9,5 @@ import org.junit.runner.RunWith;
         features = "classpath:features/",
         glue = {"com.barbaraport.addressConsultationAPI.cucumberGlue"}
 )
-public class CucumberIntegrationTests {}
+public class CucumberIntegrationTests {
+}

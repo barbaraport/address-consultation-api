@@ -1,7 +1,5 @@
 package com.barbaraport.addressConsultationAPI.cucumberGlue;
 
-import com.barbaraport.addressConsultationAPI.dto.AddressDTO;
-import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,6 +12,8 @@ import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +45,7 @@ public class AddressConsultationAPISteps {
 
             HttpEntity<String> entity = new HttpEntity<>(request.toString(), headers);
 
-            this.lastResponse =  restTemplate.exchange(
+            this.lastResponse = restTemplate.exchange(
                     builder.toUriString(),
                     HttpMethod.POST,
                     entity,
@@ -55,23 +55,25 @@ public class AddressConsultationAPISteps {
             this.lastResponse = ResponseEntity
                     .status(exception.getRawStatusCode())
                     .body(exception.getResponseBodyAsString()
-            );
+                    );
         }
     }
 
     @Then("no errors are thrown")
     public void noErrorsAreThrown() {
-        assertTrue(this.lastResponse.getStatusCodeValue() == 200);
+        assertEquals(200, this.lastResponse.getStatusCodeValue());
     }
 
     @Then("an error is thrown")
     public void anErrorIsThrown() {
-        assertTrue(this.lastResponse.getStatusCodeValue() == 400);
+        assertEquals(400, this.lastResponse.getStatusCodeValue());
     }
 
     @Then("the address should be returned")
     public void theAddressShouldBeReturned() throws JSONException {
-        JSONObject responseBody = new JSONObject(this.lastResponse.getBody().toString());
+        JSONObject responseBody = new JSONObject(
+                Objects.requireNonNull(this.lastResponse.getBody()).toString()
+        );
 
         assertTrue(responseBody.has("cep"));
         assertTrue(responseBody.has("rua"));
@@ -84,7 +86,9 @@ public class AddressConsultationAPISteps {
 
     @And("the fare should be {string}")
     public void theFareShouldBe(String expectedFare) throws JSONException {
-        JSONObject responseBody = new JSONObject(this.lastResponse.getBody().toString());
+        JSONObject responseBody = new JSONObject(
+                Objects.requireNonNull(this.lastResponse.getBody()).toString()
+        );
         double actualFare = responseBody.getDouble("frete");
 
         assertEquals(Double.valueOf(expectedFare), actualFare);
@@ -92,7 +96,9 @@ public class AddressConsultationAPISteps {
 
     @And("the message is {string}")
     public void theMessageIs(String expectedMessage) throws JSONException {
-        JSONObject responseBody = new JSONObject(this.lastResponse.getBody().toString());
+        JSONObject responseBody = new JSONObject(
+                Objects.requireNonNull(this.lastResponse.getBody()).toString()
+        );
         String actualMessage = responseBody.getString("message");
 
         assertEquals(expectedMessage, actualMessage);

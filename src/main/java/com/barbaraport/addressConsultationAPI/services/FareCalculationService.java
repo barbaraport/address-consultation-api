@@ -13,58 +13,58 @@ import com.barbaraport.addressConsultationAPI.enumerations.Zones;
 @Service
 public class FareCalculationService {
 	
-	private Map<Zones, Collection<String>> zones = this.getZones();
+	private final Map<Zones, Collection<String>> zones = this.getZones();
 	
-	public double calculateFare(String federativeUnit) throws Exception {
+	public double calculateFare(String federatedState) throws Exception {
 		
-		if (federativeUnit == null)
-			throw new Exception("The federative unit can not be null");
+		if (federatedState == null)
+			throw new Exception("The federated state can not be null");
 		
-		String treatedFederativeUnit = federativeUnit.trim().strip().toUpperCase();
+		String treatedFederatedState = federatedState.trim().strip().toUpperCase();
 		
-		if (treatedFederativeUnit.equals(""))
-			throw new Exception("The federative unit can not be empty"); 
+		if (treatedFederatedState.equals(""))
+			throw new Exception("The federated state can not be empty");
 		
-		if (zones.get(Zones.SOUTH_EAST).contains(treatedFederativeUnit)) {
+		if (zones.get(Zones.SOUTH_EAST).contains(treatedFederatedState)) {
 			return 7.85;
 		}
-		else if (zones.get(Zones.SOUTH).contains(treatedFederativeUnit)) {
+		else if (zones.get(Zones.SOUTH).contains(treatedFederatedState)) {
 			return 17.30;
 		}
-		else if (zones.get(Zones.MID_WEST).contains(treatedFederativeUnit)) {
+		else if (zones.get(Zones.MID_WEST).contains(treatedFederatedState)) {
 			return 12.50;
 		}
-		else if (zones.get(Zones.NORTH_EAST).contains(treatedFederativeUnit)) {
+		else if (zones.get(Zones.NORTH_EAST).contains(treatedFederatedState)) {
 			return 15.98;
 		}
-		else if (zones.get(Zones.NORTH).contains(treatedFederativeUnit)) {
+		else if (zones.get(Zones.NORTH).contains(treatedFederatedState)) {
 			return 20.83;
 		}
 		
-		throw new Exception("It was not possible to determine which zone the " + federativeUnit + " belongs to.");
+		throw new Exception("It was not possible to determine which zone the " + federatedState + " belongs to.");
 	}
 	
 	private Map<Zones, Collection<String>> getZones() {
-		Map<Zones, Collection<String>> zones = new HashMap<Zones, Collection<String>>();
+		Map<Zones, Collection<String>> zones = new HashMap<>();
 		
-		zones.put(Zones.NORTH, new TreeSet<String>(
-				Arrays.asList(new String[]{"AM", "RR", "AP", "PA", "TO", "RO", "AC"})
+		zones.put(Zones.NORTH, new TreeSet<>(
+				Arrays.asList("AM", "RR", "AP", "PA", "TO", "RO", "AC")
 		));
 		
-		zones.put(Zones.NORTH_EAST, new TreeSet<String>(
-				Arrays.asList(new String[]{"MA", "PI", "CE", "RN", "PE", "PB", "SE", "AL", "BA"})
+		zones.put(Zones.NORTH_EAST, new TreeSet<>(
+				Arrays.asList("MA", "PI", "CE", "RN", "PE", "PB", "SE", "AL", "BA")
 		));
 		
-		zones.put(Zones.MID_WEST, new TreeSet<String>(
-				Arrays.asList(new String[]{"MT", "MS", "GO", "DF"})
+		zones.put(Zones.MID_WEST, new TreeSet<>(
+				Arrays.asList("MT", "MS", "GO", "DF")
 		));
 		
-		zones.put(Zones.SOUTH_EAST, new TreeSet<String>(
-				Arrays.asList(new String[]{"SP", "RJ", "ES", "MG"})
+		zones.put(Zones.SOUTH_EAST, new TreeSet<>(
+				Arrays.asList("SP", "RJ", "ES", "MG")
 		));
 		
-		zones.put(Zones.SOUTH, new TreeSet<String>(
-				Arrays.asList(new String[]{"PR", "RS", "SC"})
+		zones.put(Zones.SOUTH, new TreeSet<>(
+				Arrays.asList("PR", "RS", "SC")
 		));
 		
 		return zones;

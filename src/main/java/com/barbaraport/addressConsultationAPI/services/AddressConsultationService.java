@@ -18,84 +18,80 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class AddressConsultationService {
-	
-	@Autowired
-	private FareCalculationService fareCalculationService;
-	
-	@Autowired
-	private ZipCodeHandlingService zipCodeHandlingService;
 
-	public AddressDTO getAddress(ZipCodeDTO zipCodeDTO) throws Exception {
-		
-		boolean isZipCodeDTONull = zipCodeHandlingService.isZipCodeDTONull(zipCodeDTO);
-		if (isZipCodeDTONull) throw new Exception("The request must have a body containing the zip code");
-		
-		String zipCode = zipCodeDTO.getCep();
-		
-		boolean isZipCodeNull = zipCodeHandlingService.isZipCodeNull(zipCode);
-		if (isZipCodeNull) throw new Exception("The zip code can not be null");
-		
-		boolean isValidZipCode = zipCodeHandlingService.isZipCodeValid(zipCode);
-		if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " can not be invalid.");
-		
-		ViaCepResponseDTO viaCepAddress = this.doRequest(zipCode);
-		
-		String uf = viaCepAddress.getUf();
+    @Autowired
+    private FareCalculationService fareCalculationService;
 
-		double fare = fareCalculationService.calculateFare(uf);
-			
-		AddressDTO consultationAddress = new AddressDTO(
-				viaCepAddress.getCep(),
-				viaCepAddress.getLogradouro(),
-				viaCepAddress.getComplemento(),
-				viaCepAddress.getBairro(),
-				viaCepAddress.getLocalidade(),
-				uf,
-				fare
-		);
+    @Autowired
+    private ZipCodeHandlingService zipCodeHandlingService;
 
-		return consultationAddress;
-	}
-	
-	private ViaCepResponseDTO doRequest(String zipCode) throws Exception {
-		
-		String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
-		
-		RestTemplate restTemplate = new RestTemplate();
+    public AddressDTO getAddress(ZipCodeDTO zipCodeDTO) throws Exception {
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
+        boolean isZipCodeDTONull = zipCodeHandlingService.isZipCodeDTONull(zipCodeDTO);
+        if (isZipCodeDTONull) throw new Exception("The request must have a body containing the zip code");
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-				"http://www.viacep.com.br/ws/" + rawZipCode + "/json/"
-		);
+        String zipCode = zipCodeDTO.getCep();
 
-		HttpEntity<?> entity = new HttpEntity<>(headers);
+        boolean isZipCodeNull = zipCodeHandlingService.isZipCodeNull(zipCode);
+        if (isZipCodeNull) throw new Exception("The zip code can not be null");
 
-		ResponseEntity<String> plainResponse = restTemplate.exchange(
-		        builder.toUriString(), 
-		        HttpMethod.GET, 
-		        entity, 
-		        String.class);
-		
-		int statusCodeValue = plainResponse.getStatusCodeValue();
-		if (statusCodeValue == 400)
-			throw new Exception(
-				"There was an error processing the zip code " + zipCode
-				+ ". Try again.");
-		
-		String plainResponseBody = plainResponse.getBody();
-		
-		JSONObject responseBody = new JSONObject(plainResponseBody);
-		
-		if(responseBody.has("erro"))
-			throw new Exception("The zip code " + zipCode + " does not exist");
-		
-		ViaCepResponseDTO viaCepAddress = new ObjectMapper().readValue(
-				plainResponseBody,
-				ViaCepResponseDTO.class
-		);
-		
-		return viaCepAddress;
-	}
+        boolean isValidZipCode = zipCodeHandlingService.isZipCodeValid(zipCode);
+        if (!isValidZipCode) throw new Exception("The zip code " + zipCode + " can not be invalid.");
+
+        ViaCepResponseDTO viaCepAddress = this.doRequest(zipCode);
+
+        String uf = viaCepAddress.getUf();
+
+        double fare = fareCalculationService.calculateFare(uf);
+
+        return new AddressDTO(
+                viaCepAddress.getCep(),
+                viaCepAddress.getLogradouro(),
+                viaCepAddress.getComplemento(),
+                viaCepAddress.getBairro(),
+                viaCepAddress.getLocalidade(),
+                uf,
+                fare
+        );
+    }
+
+    private ViaCepResponseDTO doRequest(String zipCode) throws Exception {
+
+        String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                "http://www.viacep.com.br/ws/" + rawZipCode + "/json/"
+        );
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> plainResponse = restTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                entity,
+                String.class);
+
+        int statusCodeValue = plainResponse.getStatusCodeValue();
+        if (statusCodeValue == 400)
+            throw new Exception(
+                    "There was an error processing the zip code " + zipCode
+                            + ". Try again.");
+
+        String plainResponseBody = plainResponse.getBody();
+
+        JSONObject responseBody = new JSONObject(plainResponseBody);
+
+        if (responseBody.has("erro"))
+            throw new Exception("The zip code " + zipCode + " does not exist");
+
+        return new ObjectMapper().readValue(
+                plainResponseBody,
+                ViaCepResponseDTO.class
+        );
+    }
 }

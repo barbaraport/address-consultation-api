@@ -13,13 +13,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
-	 @Bean
-	 public Docket api() {
-		 return new Docket(DocumentationType.SWAGGER_2)
-				 .select()
-				 .apis(RequestHandlerSelectors.basePackage(
-						 "com.barbaraport.addressConsultationAPI"))
-				 .paths(PathSelectors.any())
-				 .build();
-	 }
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage(
+                        "com.barbaraport.addressConsultationAPI"))
+                .paths(PathSelectors.any())
+                .build();
+    }
 }
