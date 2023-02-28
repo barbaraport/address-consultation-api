@@ -18,7 +18,12 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * this class contains all the steps used in the Cucumber tests.
+ * this class is integrated with Spring
+ *
+ * @author Port, B.
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CucumberContextConfiguration
 public class AddressConsultationAPISteps {

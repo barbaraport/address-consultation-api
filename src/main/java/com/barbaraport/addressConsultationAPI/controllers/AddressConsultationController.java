@@ -15,6 +15,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * this controllers contains the main route
+ * from the Address Consultation API
+ *
+ * @author Port, B.
+ */
 @CrossOrigin
 @RestController
 @Api(
@@ -25,9 +31,21 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(path = "/v1/consulta-endereco")
 public class AddressConsultationController {
 
+    /**
+     * service to handle the address consultation
+     */
     @Autowired
     private AddressConsultationService addressConsultationService;
 
+    /**
+     * this method always is called when there's a POST request to the
+     * /v1/consulta-endereco route
+     *
+     * @param zipCodeDTO is the request body and must have a "cep" inside it
+     * @return a response entity containing the response after processing the zip code,
+     * which can be an error, in case of error, or the address, in case of success
+     * @author Port, B.
+     */
     @ApiOperation(
             value = "Finds the address from a given zip code",
             notes = "The zip code can have a mask or not. Example: 12280-112 or 12280112",

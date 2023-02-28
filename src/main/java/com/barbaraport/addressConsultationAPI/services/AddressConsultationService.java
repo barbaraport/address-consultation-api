@@ -16,15 +16,37 @@ import com.barbaraport.addressConsultationAPI.dto.ViaCepResponseDTO;
 import com.barbaraport.addressConsultationAPI.dto.ZipCodeDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * this service is the core from all the logic of the
+ * Address Consultation API
+ *
+ * @author Port, B.
+ */
 @Service
 public class AddressConsultationService {
 
+    /**
+     * service that handles the fare calculation
+     */
     @Autowired
     private FareCalculationService fareCalculationService;
 
+    /**
+     * service that handles the zip code validation
+     */
     @Autowired
     private ZipCodeHandlingService zipCodeHandlingService;
 
+    /**
+     * this method verifies the validity from the zip code
+     * and returns an error message if it is not valid, or the address
+     * and the calculated fare if everything was successful
+     *
+     * @param zipCodeDTO the zip code Data Transfer Object, which wraps the "cep"
+     * @return the Address Data Transfer Object ({@link com.barbaraport.addressConsultationAPI.dto.AddressDTO})
+     * @throws Exception in case of null, empty or invalid zip code
+     * @author Port, B.
+     */
     public AddressDTO getAddress(ZipCodeDTO zipCodeDTO) throws Exception {
 
         boolean isZipCodeDTONull = zipCodeHandlingService.isZipCodeDTONull(zipCodeDTO);
@@ -58,6 +80,17 @@ public class AddressConsultationService {
         );
     }
 
+    /**
+     * if the zip code is valid, this method is going to request the corresponding
+     * address to the Via Cep API
+     *
+     * @param zipCode the valid zip code
+     * @return the Via Cep Response
+     * Data Transfer Object ({@link com.barbaraport.addressConsultationAPI.dto.ViaCepResponseDTO})
+     * @throws Exception in case of any error while requesting to the API or if the API itself could not
+     *                   return the address (outdated zip codes, for example)
+     * @author Port, B.
+     */
     private ViaCepResponseDTO doRequest(String zipCode) throws Exception {
 
         String rawZipCode = zipCodeHandlingService.removeMask(zipCode);
