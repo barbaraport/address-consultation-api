@@ -2,6 +2,10 @@ package com.barbaraport.addressConsultationAPI.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * this is the Data Transfer Object that represents the successful response from the
@@ -9,6 +13,9 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author Port, B.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 @ApiModel(description = "Response body when the address is successfully found")
 public class AddressDTO extends ZipCodeDTO {
 
@@ -49,12 +56,6 @@ public class AddressDTO extends ZipCodeDTO {
     private double frete;
 
     /**
-     * empty constructor
-     */
-    public AddressDTO() {
-    }
-
-    /**
      * all arguments constructor
      *
      * @param cep         zip code
@@ -65,6 +66,7 @@ public class AddressDTO extends ZipCodeDTO {
      * @param estado      state
      * @param frete       fare (transportation cost)
      */
+    @Builder
     public AddressDTO(
             String cep,
             String rua,
@@ -80,54 +82,6 @@ public class AddressDTO extends ZipCodeDTO {
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
-        this.frete = frete;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public double getFrete() {
-        return frete;
-    }
-
-    public void setFrete(double frete) {
         this.frete = frete;
     }
 
