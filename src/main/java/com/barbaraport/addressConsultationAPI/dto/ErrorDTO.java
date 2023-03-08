@@ -2,6 +2,10 @@ package com.barbaraport.addressConsultationAPI.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * this is the Data Transfer Object that represents the fail response from the
@@ -9,6 +13,10 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author Port, B.
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel(description = "Response body when the address was not found")
 public class ErrorDTO {
 
@@ -17,23 +25,5 @@ public class ErrorDTO {
      */
     @ApiModelProperty(notes = "Error message", example = "The zip code 99999-999 does not exist", required = true)
     private String message;
-
-    /**
-     * empty constructor
-     */
-    public ErrorDTO() {
-    }
-
-    public ErrorDTO(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
 }
